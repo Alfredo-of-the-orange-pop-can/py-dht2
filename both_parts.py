@@ -1,16 +1,19 @@
 '''
-First part reads temp from a DHT connecto to the pi
+First part reads temperature_c from a DHT connecto to the pi
 
 second part save the data as CSV
 '''
 
 # SPDX-FileCopyrightText: 2021 ladyada for Adafruit Industries
 # SPDX-License-Identifier: MIT
-#record entrys to a list hen a file using a DHT tempetur sensor
+#record entrys to a list hen a file using a DHT temperature_cetur sensor
 import time
 import board
 import adafruit_dht
+import random
 
+temperature_c = random.randint(-10,35)
+humidity = random.randint(10,100)
 # Initial the dht device, with data pin connected to:
 dhtDevice = adafruit_dht.DHT11(board.D4)
 
@@ -19,25 +22,25 @@ dhtDevice = adafruit_dht.DHT11(board.D4)
 # but it will not work in CircuitPython.
 # dhtDevice = adafruit_dht.DHT22(board.D18, use_pulseio=False)
 
-temp_list =[]
+temperature_c_list =[]
 humi_list =[]
 
 while True:
     try:
         # Print the values to the serial port
         temperature_c = dhtDevice.temperature
-        temperature_f = temperature_c * (9 / 5) + 32
-        humidity = dhtDevice.humidity
+        temperature_cerature_f = temperature_c * (9 / 5) + 32
+        humidityity = dhtDevice.humidityity
         print(
-            "Temp: {:.1f} F / {:.1f} C    Humidity: {}% ".format(
-                temperature_f, temperature_c, humidity
+            "temperature_c: {:.1f} F / {:.1f} C    humidityity: {}% ".format(
+                temperature_cerature_f, temperature_c, humidityity
             )
         )
         
-        temp_list.append(temperature_c)
-        humi_list.append(humidity)
+        temperature_c_list.append(temperature_c)
+        humi_list.append(humidityity)
         print(humi_list)
-        print(temp_list)
+        print(temperature_c_list)
 
     except RuntimeError as error:
         # Errors happen fairly often, DHT's are hard to read, just keep going
@@ -46,26 +49,28 @@ while True:
         continue
     except Exception as error:
         dhtDevice.exit()
-        raise error
+        break
 
     time.sleep(2.0)
-
+'''
 #second part  write csv
 import random
 
-temp = random.randint(-10,35)
-humid = random.randint(10,100)
+temperature_c = random.randint(-10,35)
+humidity = random.randint(10,100)
+'''
 
-print(temp)
-print(humid)
 
-csvout = str(f'{temp},{humid} \n')
-print('temp is ' + str(temp) +'C and humidity is ' + str(humid) +'%')
+print(temperature_c)
+print(humidity)
+
+csvout = str(f'{temperature_c},{humidity} \n')
+print('temperature_c is ' + str(temperature_c) +'C and humidityity is ' + str(humidity) +'%')
 
 print(csvout)
 
 #append to file Code goes here
-file = open("temp_data.csv" , 'a')
+file = open("temperature_c_data.csv" , 'a')
 
 #TO READ THE FILE
 #print(file.read())
@@ -76,7 +81,7 @@ print(file)
 file.write(csvout)
 file.close
 
-file = open("temp_data.csv" , 'r')
+file = open("temperature_c_data.csv" , 'r')
 
 #TO READ THE FILE
 print(file.read())
