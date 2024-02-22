@@ -12,8 +12,8 @@ import board
 import adafruit_dht
 import random
 
-temperature_c = random.randint(-10,35)
-humidity = random.randint(10,100)
+# temperature_c = random.randint(-10,35)
+# humidity = random.randint(10,100)
 # Initial the dht device, with data pin connected to:
 dhtDevice = adafruit_dht.DHT11(board.D4)
 
@@ -30,15 +30,15 @@ while True:
         # Print the values to the serial port
         temperature_c = dhtDevice.temperature
         temperature_cerature_f = temperature_c * (9 / 5) + 32
-        humidityity = dhtDevice.humidityity
+        humidity = dhtDevice.humidity
         print(
             "temperature_c: {:.1f} F / {:.1f} C    humidityity: {}% ".format(
-                temperature_cerature_f, temperature_c, humidityity
+                temperature_f, temperature_c, humidity
             )
         )
         
         temperature_c_list.append(temperature_c)
-        humi_list.append(humidityity)
+        humi_list.append(humidity)
         print(humi_list)
         print(temperature_c_list)
 
